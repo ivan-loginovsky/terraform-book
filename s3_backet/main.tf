@@ -3,13 +3,16 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "terraform_state" {
-  bucket = "ivan-book-terraform-up-and-running-state"
+  bucket        = "ivan-book-terraform-up-and-running-state"
+  force_destroy = true
+
 
   # Prevent accidental deletion of this S3 bucket
   lifecycle {
-    prevent_destroy = true
+    #prevent_destroy = true
   }
 }
+
 
 # Enable versioning so you can see the full revision history of your
 # state files
@@ -49,7 +52,7 @@ resource "aws_dynamodb_table" "terraform_locks" {
     type = "S"
   }
 }
-
+/*
 terraform {
   backend "s3" {
     # Replace this with your bucket name!
@@ -62,7 +65,7 @@ terraform {
     encrypt        = true
   }
 }
-
+*/
 output "s3_bucket_arn" {
   value       = aws_s3_bucket.terraform_state.arn
   description = "The ARN of the S3 bucket"
