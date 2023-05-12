@@ -13,7 +13,6 @@ resource "aws_s3_bucket" "terraform_state" {
   }
 }
 
-
 # Enable versioning so you can see the full revision history of your
 # state files
 resource "aws_s3_bucket_versioning" "enabled" {
@@ -52,7 +51,7 @@ resource "aws_dynamodb_table" "terraform_locks" {
     type = "S"
   }
 }
-/*
+
 terraform {
   backend "s3" {
     # Replace this with your bucket name!
@@ -65,13 +64,4 @@ terraform {
     encrypt        = true
   }
 }
-*/
-output "s3_bucket_arn" {
-  value       = aws_s3_bucket.terraform_state.arn
-  description = "The ARN of the S3 bucket"
-}
 
-output "dynamodb_table_name" {
-  value       = aws_dynamodb_table.terraform_locks.name
-  description = "The name of the DynamoDB table"
-}
